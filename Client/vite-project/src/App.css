@@ -19,3 +19,16 @@
   -moz-osx-font-smoothing: grayscale;
 } */
 
+
+
+#openai_logo{
+  background-image: url('./assets/OpenAI_Logo.svg.png');
+  background-repeat: no-repeat;
+  width: 60vw;
+  height: 50vh;
+  transform: scale(0.175);
+  position: absolute;
+  top: -150px;
+  left: -390px;
+}
+
