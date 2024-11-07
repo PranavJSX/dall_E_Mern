@@ -17,8 +17,33 @@ export const CreatePost = () => {
   const [generatingImg,setgeneratingImg]= useState(false);
   const [loading,setLoading] = useState(false);
 
-  const handleSubmit = () =>{
-
+  const handleSubmit = async (event) =>{
+    event.preventDefault();
+    // console.log(form);
+    if(form.prompt && form.photo){
+      setLoading(true);
+      try{
+        console.log(form);
+        const response = await fetch('http://localhost:5050/api/v1/post',{
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+          },
+          body:JSON.stringify(form), 
+        })
+        await response.json();
+        console.log('Response: ',response)
+        navigate('/')
+      }catch(error){
+        alert(error)
+      }
+      finally{
+        setLoading(false);
+      }
+    }
+    else{
+      alert('Please enter a prompt and generate an image first');
+    }
   }
 
   const handleChange = (e) =>{
@@ -30,7 +55,7 @@ export const CreatePost = () => {
     setForm({...form,prompt:randomPrompt});
   }
   const generateImage = async() =>{
-    form.prompt = 'A plush toy robot sitting on a chair staring at a yellow wall'
+    // form.prompt = 'A plush toy robot sitting on a chair staring at a yellow wall'
     if(form.prompt){
       try {
         setgeneratingImg(true);
@@ -43,8 +68,7 @@ export const CreatePost = () => {
         })
 
         const data = await  respone.json();
-        data ? setForm({...form,photo:`${data}`}):'';
-        console.log(form.photo);
+        data ? setForm({...form,photo:`${data.url}`}):'';
         // if(data ? setForm({...form,photo:`${data}`}))
         // console.log(form);
       } catch (error) {
@@ -83,7 +107,7 @@ export const CreatePost = () => {
           <FormField
           label = "Prompt"
           type = "text"
-          name = "name"
+          name = "prompt"
           placeholder = "A plush toy robot sitting on a chair staring at a yellow wall"
           value = {form.prompt}
           handleChange = {handleChange}
