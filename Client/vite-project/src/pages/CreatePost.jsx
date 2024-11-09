@@ -24,7 +24,7 @@ export const CreatePost = () => {
       setLoading(true);
       try{
         console.log(form);
-        const response = await fetch('http://localhost:5050/api/v1/post',{
+        const response = await fetch('https://edsign-image-gen.onrender.com/api/v1/post',{
           method:'POST',
           headers:{
             'Content-Type':'application/json',
@@ -59,7 +59,7 @@ export const CreatePost = () => {
     if(form.prompt){
       try {
         setgeneratingImg(true);
-        const respone = await fetch('http://localhost:5050/api/v1/dalle',{
+        const respone = await fetch('https://edsign-image-gen.onrender.com/api/v1/post',{
           method:'POST',
           headers:{
             'Content-Type':'application/json',
