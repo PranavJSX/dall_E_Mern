@@ -6,7 +6,7 @@ const Post = new mongoose.Schema({
     photo:{type:String,required:true},
 } 
 );
-
+console.log(Post);
 
 const PostSchema = mongoose.model('Post',Post);
 
